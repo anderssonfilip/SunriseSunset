@@ -11,7 +11,6 @@
         </iq:products>
 
         <iq:permissions>
-<!--           <iq:uses-permission id="ActivityRecording"/> -->
 <!--             <iq:uses-permission id="Communications"/> -->
 <!--              <iq:uses-permission id="FIT"/> -->
             <iq:uses-permission id="Positioning"/>
