@@ -55,14 +55,12 @@ class SunriseSunsetView extends Ui.View {
 		}
 		
 		// convert to hour:minutes
-		var sunrise = modulus(sunTuple.mSunrise, 1.0) * 24 - 12;
-		sys.println("sunrise " + sunrise.toLong().toString() + ":" + (modulus(sunrise,1) * 60).toLong().toString());
+		var sunrise = (sunTuple.mSunrise - sunTuple.mSunrise.toLong()) * 24 - 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
+		sys.println("sunrise " + sunrise.toLong().toString() + ":" + ((sunrise - sunrise.toLong()) * 60).toLong().toString());
 		
-		var sunset = modulus(sunTuple.mSunset, 1.0) * 24 + 12;
-		sys.println("sunset " + sunset.toLong().toString() + ":" + (modulus(sunset,1) * 60).toLong().toString());
-		
-		// convert back from UTC
-		
+		var sunset = (sunTuple.mSunset - sunTuple.mSunset.toLong()) * 24 + 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
+		sys.println("sunset  " + sunset.toLong().toString() + ":" + ((sunset - sunset.toLong()) * 60).toLong().toString());
+			
 	}
 	
 	function evaluateSunset(lonW, latN, JD)
@@ -84,17 +82,17 @@ class SunriseSunsetView extends Ui.View {
 		// Solar Mean Anomaly
 		// is there a built in round() function
 		var mPrim = 0;
-		if((357.5291 + 0.98560028 * (jStar - 2451545)) - 
-		   (357.5291 + 0.98560028 * (jStar - 2451545)).toLong() >= 0.5)
+		if((357.5291d + 0.98560028 * (jStar - 2451545)) - 
+		   (357.5291d + 0.98560028 * (jStar - 2451545)).toLong() >= 0.5)
 		{
 			mPrim = 1;
 		}
-		var M = (mPrim + 357.5291d + 0.98560028d * (jStar - 2451545)).toLong() % 360;
+		var M = (mPrim + 357.5291d + 0.98560028 * (jStar - 2451545)).toLong() % 360;
 		
 		//sys.println("M " + M.toString());
 		
 		// Equation of Center
-		var C = 1.9418 * math.sin(degToRad(M)) + 0.02 * math.sin(degToRad(2 * M)) + 0.0003 * math.sin(degToRad(3 * M));
+		var C = 1.9418d * math.sin(degToRad(M)) + 0.02 * math.sin(degToRad(2 * M)) + 0.0003 * math.sin(degToRad(3 * M));
 		
 		//sys.println("C " + C.toString());
 		
@@ -111,11 +109,11 @@ class SunriseSunsetView extends Ui.View {
 		//sys.println("Lambda " + lambda.toString());
 		
 		// Solar transit
-		var jTransit = jStar + 0.0053d * math.sin(degToRad(M)) - 0.0069d * math.sin(degToRad(2*lambda));
+		var jTransit = jStar + 0.0053 * math.sin(degToRad(M)) - 0.0069 * math.sin(degToRad(2*lambda));
 		
 		//sys.println("jTransit " + jTransit.toString());
 		
-		var dec = math.sin(degToRad(lambda)) * math.sin(degToRad(23.45));
+		var dec = math.sin(degToRad(lambda)) * math.sin(degToRad(23.45d));
 	
 		//sys.println("sun declination " + dec.toString());
 

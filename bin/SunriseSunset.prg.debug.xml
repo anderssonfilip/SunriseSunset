@@ -1,24 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <debugInfo>
 <pcToLineNum>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="11" pc="268435458" symbol="onLayout"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="17" pc="268435498" symbol="onPosition"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="23" pc="268435554" symbol="onShow"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="27" pc="268435605" symbol="onHide"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="33" pc="268435656" symbol="onUpdate"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="34" pc="268435673" symbol="onUpdate"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="35" pc="268435747" symbol="onUpdate"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="36" pc="268435771" symbol="onUpdate"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetView.mc" lineNum="39" pc="268435785" symbol="onUpdate"/>
-<entry filename="C:\\Users\\filip\\workspace\\SunriseSunset\\source\\SunriseSunsetApp.mc" lineNum="19" pc="268435821" symbol="getInitialView"/>
-<entry filename="Rez" lineNum="5" pc="268436156" symbol="&lt;init&gt;"/>
-<entry filename="Rez" lineNum="10" pc="268436143" symbol="&lt;init&gt;"/>
-<entry filename="Rez" lineNum="19" pc="268435862" symbol="WatchFace"/>
-<entry filename="Rez" lineNum="20" pc="268435876" symbol="WatchFace"/>
-<entry filename="Rez" lineNum="21" pc="268435973" symbol="WatchFace"/>
-<entry filename="Rez" lineNum="22" pc="268435988" symbol="WatchFace"/>
-<entry filename="Rez" lineNum="23" pc="268436040" symbol="WatchFace"/>
-<entry filename="Rez" lineNum="24" pc="268436086" symbol="WatchFace"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="14" pc="268435458" symbol="onLayout"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="19" pc="268435498" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="20" pc="268435519" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="22" pc="268435572" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="23" pc="268435627" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="25" pc="268435682" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="26" pc="268435704" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="27" pc="268435723" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="29" pc="268435748" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="31" pc="268435848" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="33" pc="268435916" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="36" pc="268435949" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="37" pc="268435992" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="39" pc="268436009" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="40" pc="268436043" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="42" pc="268436054" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="44" pc="268436073" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="46" pc="268436087" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="48" pc="268436112" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="49" pc="268436151" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="53" pc="268436193" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="54" pc="268436232" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="58" pc="268436271" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="59" pc="268436336" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="61" pc="268436423" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="62" pc="268436488" symbol="onPosition"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="75" pc="268436578" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="78" pc="268436616" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="84" pc="268436639" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="85" pc="268436646" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="88" pc="268436713" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="90" pc="268436723" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="95" pc="268436767" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="101" pc="268436889" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="102" pc="268436896" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="105" pc="268436957" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="107" pc="268436967" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="112" pc="268437009" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="116" pc="268437089" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="120" pc="268437155" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="124" pc="268437303" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="125" pc="268437433" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="127" pc="268437443" symbol="evaluateSunset"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="132" pc="268437473" symbol="onShow"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="136" pc="268437524" symbol="onHide"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="142" pc="268437575" symbol="onUpdate"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="144" pc="268437592" symbol="onUpdate"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="145" pc="268437668" symbol="onUpdate"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="146" pc="268437692" symbol="onUpdate"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="149" pc="268437706" symbol="onUpdate"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="163" pc="268437735" symbol="degToRad"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetView.mc" lineNum="169" pc="268437760" symbol="modulus"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunriseSunsetApp.mc" lineNum="19" pc="268437791" symbol="getInitialView"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunTuple.mc" lineNum="8" pc="268437832" symbol="initialize"/>
+<entry filename="/Users/filip/workspace/SunriseSunset/source/SunTuple.mc" lineNum="9" pc="268437842" symbol="initialize"/>
+<entry filename="Rez" lineNum="5" pc="268438168" symbol="&lt;init&gt;"/>
+<entry filename="Rez" lineNum="10" pc="268438155" symbol="&lt;init&gt;"/>
+<entry filename="Rez" lineNum="19" pc="268437855" symbol="WatchFace"/>
+<entry filename="Rez" lineNum="20" pc="268437869" symbol="WatchFace"/>
+<entry filename="Rez" lineNum="21" pc="268437966" symbol="WatchFace"/>
+<entry filename="Rez" lineNum="22" pc="268437981" symbol="WatchFace"/>
+<entry filename="Rez" lineNum="23" pc="268438033" symbol="WatchFace"/>
+<entry filename="Rez" lineNum="24" pc="268438079" symbol="WatchFace"/>
 </pcToLineNum>
 <symbolTable>
 <entry id="8389359" symbol="&lt;gre&gt;"/>
@@ -61,7 +106,7 @@
 <entry id="8389358" symbol="&lt;deu&gt;"/>
 <entry field="true" id="8388807" symbol="BLE_REQUEST_TOO_LARGE"/>
 <entry id="8388819" method="true" symbol="makeImageRequest"/>
-<entry id="11" module="true" symbol="Menus"/>
+<entry id="17" module="true" symbol="Menus"/>
 <entry id="3" module="true" symbol="globals_Rez_Drawables"/>
 <entry id="8388630" module="true" symbol="Toybox_Position"/>
 <entry id="8389354" symbol="&lt;dut&gt;"/>
@@ -101,7 +146,7 @@
 <entry id="8388659" method="true" symbol="testAbs"/>
 <entry field="true" id="8388989" symbol="dutyCycle"/>
 <entry id="8389043" object="true" symbol="ProgressBar"/>
-<entry field="true" id="14" symbol="AppName"/>
+<entry field="true" id="20" symbol="AppName"/>
 <entry field="true" id="8388927" symbol="SECONDS_PER_YEAR"/>
 <entry id="8389114" method="true" symbol="getType"/>
 <entry id="9" object="true" symbol="SunriseSunsetApp"/>
@@ -115,7 +160,7 @@
 <entry id="8389184" method="true" symbol="drawLine"/>
 <entry id="8389250" symbol="timestamp"/>
 <entry id="8388877" method="true" symbol="createSession"/>
-<entry field="true" id="13" symbol="LauncherIcon"/>
+<entry field="true" id="19" symbol="LauncherIcon"/>
 <entry id="8388616" module="true" symbol="Toybox_Communications"/>
 <entry field="true" id="8389380" symbol="OBSCURE_TOP"/>
 <entry field="true" id="8389201" symbol="MSG_ID_SEARCH_TIMEOUT"/>
@@ -191,6 +236,7 @@
 <entry field="true" id="8389210" symbol="MSG_ID_OPEN_CHANNEL"/>
 <entry field="true" id="8389153" symbol="FONT_TINY"/>
 <entry id="8388932" symbol="getDayHash"/>
+<entry id="14" method="true" symbol="evaluateSunset"/>
 <entry id="8389347" symbol="color"/>
 <entry field="true" id="8389156" symbol="FONT_LARGE"/>
 <entry field="true" id="8389004" symbol="KEY_UP_LEFT"/>
@@ -209,7 +255,7 @@
 <entry id="8389188" method="true" symbol="fillRectangle"/>
 <entry id="8389142" method="true" symbol="getProfile"/>
 <entry id="8388729" object="true" symbol="Info"/>
-<entry id="12" module="true" symbol="Layouts"/>
+<entry id="18" module="true" symbol="Layouts"/>
 <entry id="8388710" object="true" symbol="Stats"/>
 <entry field="true" id="8389152" symbol="FONT_XTINY"/>
 <entry id="8389189" method="true" symbol="fillRoundedRectangle"/>
@@ -400,6 +446,7 @@
 <entry id="8388641" module="true" symbol="Math"/>
 <entry field="true" id="8388800" symbol="UNKNOWN_ERROR"/>
 <entry id="8388760" object="true" symbol="Float"/>
+<entry field="true" id="11" symbol="mSunrise"/>
 <entry id="8389081" method="true" symbol="onBack"/>
 <entry field="true" id="8389044" symbol="SLIDE_IMMEDIATE"/>
 <entry field="true" id="8388757" symbol="currentHeading"/>
@@ -429,6 +476,7 @@
 <entry id="8389137" method="true" symbol="compute"/>
 <entry id="8388901" method="true" symbol="rand"/>
 <entry id="8388617" module="true" symbol="Toybox_ActivityRecording"/>
+<entry id="16" method="true" symbol="modulus"/>
 <entry id="8388986" object="true" symbol="VibeProfile"/>
 <entry id="8389014" object="true" symbol="ClickEvent"/>
 <entry field="true" id="8388732" symbol="elapsedTime"/>
@@ -457,6 +505,7 @@
 <entry id="8389331" symbol="sunday"/>
 <entry field="true" id="8389173" symbol="TEXT_JUSTIFY_CENTER"/>
 <entry id="8389070" method="true" symbol="setSize"/>
+<entry id="10" object="true" symbol="SunTuple"/>
 <entry id="8388712" method="true" symbol="print"/>
 <entry field="true" id="8388695" symbol="count2"/>
 <entry field="true" id="8388694" symbol="count1"/>
@@ -484,6 +533,7 @@
 <entry id="8389278" symbol="mPropertiesChanged"/>
 <entry field="true" id="8388970" symbol="TONE_ALERT_HI"/>
 <entry field="true" id="8389174" symbol="TEXT_JUSTIFY_LEFT"/>
+<entry id="15" method="true" symbol="degToRad"/>
 <entry id="8388923" method="true" symbol="today"/>
 <entry field="true" id="8389222" symbol="MSG_CODE_EVENT_CHANNEL_CLOSED"/>
 <entry id="8388679" method="true" symbol="testObjectLock"/>
@@ -672,7 +722,7 @@
 <entry field="true" id="8388733" symbol="timerTime"/>
 <entry field="true" id="8388755" symbol="swimEfficency"/>
 <entry id="8388935" method="true" symbol="duration"/>
-<entry id="10" method="true" symbol="onPosition"/>
+<entry id="13" method="true" symbol="onPosition"/>
 <entry field="true" id="8389263" symbol="DEFAULT_DEVICE_TYPE"/>
 <entry id="8388728" method="true" symbol="getActivityInfo"/>
 <entry field="true" id="8388751" symbol="averageCadence"/>
@@ -764,6 +814,7 @@
 <entry field="true" id="8389246" symbol="transmissionType"/>
 <entry id="8388882" method="true" symbol="save"/>
 <entry id="8389106" method="true" symbol="getDimensions"/>
+<entry field="true" id="12" symbol="mSunset"/>
 <entry id="8388797" method="true" symbol="substring"/>
 <entry id="8389275" method="true" symbol="getApp"/>
 <entry id="8388779" symbol="mMethod"/>
@@ -838,6 +889,12 @@
 <param id="info"/>
 <documentation/>
 </functionEntry>
+<functionEntry name="evaluateSunset">
+<param id="lonW"/>
+<param id="latN"/>
+<param id="JD"/>
+<documentation/>
+</functionEntry>
 <functionEntry name="onShow">
 <documentation><![CDATA[<div class="description"> Restore the state of the app and prepare the view to be shown<br/></div>]]></documentation>
 </functionEntry>
@@ -854,6 +911,15 @@
 <functionEntry name="onEnterSleep">
 <documentation><![CDATA[<div class="description"> Terminate any active timers and prepare for slow updates.<br/></div>]]></documentation>
 </functionEntry>
+<functionEntry name="degToRad">
+<param id="degrees"/>
+<documentation><![CDATA[<div class="description"> Covert degrees (°) to radians<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry name="modulus">
+<param id="a"/>
+<param id="n"/>
+<documentation><![CDATA[<div class="description"> Perform a modulus on two positive (decimal) numbers, i.e. 'a' mod 'n'<br/> 'a' is divident and 'n' is the divisor<br/></div>]]></documentation>
+</functionEntry>
 <functionEntry name="onStart">
 <documentation><![CDATA[<div class="description"> onStart() is called on application start up<br/></div>]]></documentation>
 </functionEntry>
@@ -862,6 +928,11 @@
 </functionEntry>
 <functionEntry name="getInitialView">
 <documentation><![CDATA[<div class="description"> Return the initial view of your application here<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry name="initialize">
+<param id="sunrise"/>
+<param id="sunset"/>
+<documentation/>
 </functionEntry>
 <functionEntry name="WatchFace">
 <param id="dc"/>
