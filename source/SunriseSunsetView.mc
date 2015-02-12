@@ -9,8 +9,11 @@ using Toybox.Time.Gregorian as gregorian;
 
 class SunriseSunsetView extends Ui.View {
 
+	var _dc = null;
+
     //! Load your resources here
     function onLayout(dc) {
+    	_dc = dc;
         setLayout(Rez.Layouts.WatchFace(dc));
     }
     
@@ -60,7 +63,32 @@ class SunriseSunsetView extends Ui.View {
 		
 		var sunset = (sunTuple.mSunset - sunTuple.mSunset.toLong()) * 24 + 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
 		sys.println("sunset  " + sunset.toLong().toString() + ":" + ((sunset - sunset.toLong()) * 60).toLong().toString());
+		
+		var view = View.findDrawableById("SunLabel");
+		var icon = View.findDrawableById("SunIcon");
+		
+		var hc = _dc.getHeight() / 2;
+		var wc = _dc.getWidth() / 2;
+		
+		view.setLocation(1.42 * wc, 1.5 * hc);
+		icon.setLocation(0.85 * wc, 1.4 * hc);
+
+		if(JD <= sunTuple.mSunrise)
+		{
+			view.setColor(Gfx.COLOR_YELLOW);
+			view.setText(sunrise.toLong().toString() + ":" + ((sunrise - sunrise.toLong()) * 60).toLong().toString());
 			
+			icon.setBitmap(Rez.Drawables.SunriseIcon);
+		}
+		else
+		{
+			view.setColor(Gfx.COLOR_LT_GRAY);
+			view.setText(sunset.toLong().toString() + ":" + ((sunset - sunset.toLong()) * 60).toLong().toString());
+			
+			icon.setBitmap(Rez.Drawables.SunsetIcon);
+		}
+		
+		View.onUpdate(_dc);	
 	}
 	
 	function evaluateSunset(lonW, latN, JD)
@@ -143,6 +171,7 @@ class SunriseSunsetView extends Ui.View {
         
         var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
         var view = View.findDrawableById("TimeLabel");
+        view.setLocation(view.locX, view.locY-5);
         view.setText(timeString);
 
         // Call the parent onUpdate function to redraw the layout

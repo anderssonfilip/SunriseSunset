@@ -2,4 +2,6 @@
     <string id="AppName">SunriseSunset</string>
 
     <bitmap id="LauncherIcon" filename="images/launcher_icon.png" />
+    <bitmap id="SunriseIcon" filename="images/sunrise.png" />
+    <bitmap id="SunsetIcon" filename="images/sunset.png" />
 </resources>
