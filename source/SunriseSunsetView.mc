@@ -10,30 +10,42 @@ using Toybox.Time.Gregorian as gregorian;
 class SunriseSunsetView extends Ui.View {
 
 	var _dc = null;
+	var startupTimer = new Timer.Timer();
+	var clockTimer;
+	
+	var utcOffset = new time.Duration(-sys.getClockTime().timeZoneOffset);
 
     //! Load your resources here
-    function onLayout(dc) {
+    function onLayout(dc) 
+    {
+    	startupTimer.start( method(:startupTimerCallback), 60000 - sys.getTimer() % 60000, false);
+    	
     	_dc = dc;
         setLayout(Rez.Layouts.WatchFace(dc));
+    }
+    
+    function startupTimerCallback()
+    {
+    	clockTimer = new Timer.Timer();
+    	clockTimer.start(method(:clockTimerCallback), 60000 - sys.getTimer() % 60000, true);
+    	
+    	// todo: if ticked past sunrise/sunset run calculation again
+    	
+    	Ui.requestUpdate();
+    	startupTimer = null;
+    }
+    
+    function clockTimerCallback()
+    {
+    	// todo: if ticked past sunrise/sunset run calculation again
+    
+    	Ui.requestUpdate();
     }
     
     function onPosition(info)
 	{
 		sys.println("");
 		sys.println("Position " + info.position.toGeoString(Position.GEO_DEG));
-		
-		var utcOffset = new time.Duration(-sys.getClockTime().timeZoneOffset);
-		var timeInfo = gregorian.info(time.now().add(utcOffset), gregorian.FORMAT_SHORT);
-		
-		var a = (14 - timeInfo.month)/12;
-		var y = timeInfo.year + 4800 - a;
-		var m = timeInfo.month + 12 * a - 3;
-		
-		var JDN = timeInfo.day + ((153 * m  + 2) / 5) + 365*y + (y/4).toLong() - (y/100).toLong() + (y/400).toLong() - 32045;
-		
-		var JD = JDN + (timeInfo.hour - 12)/24.0 + timeInfo.min/1440.0 + timeInfo.sec/(gregorian.SECONDS_PER_DAY*1.0);
-			
-		sys.println("Julian day " + JD.toString());
 		
 		// use absolute to get west as positive
 		var lonW = info.position.toDegrees()[1].abs().toDouble();
@@ -42,11 +54,16 @@ class SunriseSunsetView extends Ui.View {
 		var latN = info.position.toDegrees()[0].toDouble();
 		latN = 35.8833d;
 				
+		var JD = evaluateJulianDay();	
+		
+		sys.println("Julian day " + JD.toString());	
+				
 		var sunTuple = evaluateSunset(lonW, latN, JD);
 		
 		if(sunTuple.mSunset < JD) // if sunset is passed run calculation again for next day
 		{
-			sunTuple = evaluateSunset(lonW, latN, JD+1);
+			JD = JD +1;
+			sunTuple = evaluateSunset(lonW, latN, JD);
 			
 			sys.println("sunrise (+1) " + sunTuple.mSunrise.toString());
 			sys.println("sunset  (+1) " + sunTuple.mSunset.toString());
@@ -67,11 +84,16 @@ class SunriseSunsetView extends Ui.View {
 		var view = View.findDrawableById("SunLabel");
 		var icon = View.findDrawableById("SunIcon");
 		
-		var hc = _dc.getHeight() / 2;
 		var wc = _dc.getWidth() / 2;
+		var hc = _dc.getHeight() / 2;
+	
+		var vmargin = _dc.getHeight() * 0.25;
+		var hmargin = 6;
 		
-		view.setLocation(1.42 * wc, 1.5 * hc);
-		icon.setLocation(0.85 * wc, 1.4 * hc);
+		var clock = View.findDrawableById("TimeLabel");
+		                	
+		view.setLocation(wc + 32 + hmargin, hc + clock.height + vmargin);
+		icon.setLocation(wc - 16, hc + clock.height + vmargin - 6);
 
 		if(JD <= sunTuple.mSunrise)
 		{
@@ -91,15 +113,21 @@ class SunriseSunsetView extends Ui.View {
 		View.onUpdate(_dc);	
 	}
 	
+	function evaluateJulianDay()
+	{
+		var timeInfo = gregorian.info(time.now().add(utcOffset), gregorian.FORMAT_SHORT);
+		
+		var a = (14 - timeInfo.month)/12;
+		var y = timeInfo.year + 4800 - a;
+		var m = timeInfo.month + 12 * a - 3;
+		
+		var JDN = timeInfo.day + ((153 * m  + 2) / 5) + 365*y + (y/4).toLong() - (y/100).toLong() + (y/400).toLong() - 32045;
+		
+		return JDN + (timeInfo.hour - 12)/24.0 + timeInfo.min/1440.0 + timeInfo.sec/(gregorian.SECONDS_PER_DAY*1.0);
+	}
+	
 	function evaluateSunset(lonW, latN, JD)
 	{	
-		//var today = time.today();
-		//var now = time.now();
-		//var hour = (now.subtract(today).value() / gregorian.SECONDS_PER_HOUR).toLong();
-		//var minutes = ((now.subtract(today).value() % gregorian.SECONDS_PER_HOUR) / gregorian.SECONDS_PER_MINUTE).toLong();
-		//var seconds = ((now.subtract(today).value() % gregorian.SECONDS_PER_HOUR) % gregorian.SECONDS_PER_MINUTE).toLong();
-		
-		// n = JulianDate - 2451545.0009 - longitudeWest/360 + 0.5
 		var n = (JD - 2451545.0009d - (lonW/360) + 0.50).toLong();
 		
 		// Approximate Solar Noon
@@ -156,22 +184,23 @@ class SunriseSunsetView extends Ui.View {
 	}
 	
     //! Restore the state of the app and prepare the view to be shown
-    function onShow() {
+    function onShow() 
+    {
     	Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));  
     }
     
-    function onHide() {
+    function onHide() 
+    {
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
     }
 
     //! Update the view
-    function onUpdate(dc) {
+    function onUpdate(dc) 
+    {
         // Get and show the current time
         var clockTime = sys.getClockTime();
-        
         var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
         var view = View.findDrawableById("TimeLabel");
-        view.setLocation(view.locX, view.locY-5);
         view.setText(timeString);
 
         // Call the parent onUpdate function to redraw the layout
@@ -179,23 +208,26 @@ class SunriseSunsetView extends Ui.View {
     }
 
     //! The user has just looked at their watch. Timers and animations may be started here.
-    function onExitSleep() {
+    function onExitSleep() 
+    {
     }
 
     //! Terminate any active timers and prepare for slow updates.
-    function onEnterSleep() {
+    function onEnterSleep() 
+    {
     }
     
     
     //! Covert degrees (°) to radians
-	function degToRad(degrees){
+	function degToRad(degrees)
+	{
 		return degrees * math.PI / 180;
 	}
 	
 	//! Perform a modulus on two positive (decimal) numbers, i.e. 'a' mod 'n'
 	//! 'a' is divident and 'n' is the divisor
-	function modulus(a, n){
+	function modulus(a, n)
+	{
 		return a - (a / n).toLong() * n;
 	}
-
 }
