@@ -9,37 +9,36 @@ using Toybox.Time.Gregorian as gregorian;
 
 class SunriseSunsetView extends Ui.View {
 
-	var _dc = null;
-	var startupTimer = new Timer.Timer();
-	var clockTimer;
+	var viewPortHeight = 0;
+	var viewPortWidth = 0;
+	
+	var clockTimer = new Timer.Timer();
 	
 	var utcOffset = new time.Duration(-sys.getClockTime().timeZoneOffset);
+	
+	var nextSunPhase = 0; // Julian time of next sun phase (rise OR set)
 
     //! Load your resources here
     function onLayout(dc) 
     {
-    	startupTimer.start( method(:startupTimerCallback), 60000 - sys.getTimer() % 60000, false);
+    	clockTimer.start(method(:clockTimerCallback), 60000 - sys.getTimer() % 60000, false);
     	
-    	_dc = dc;
+    	viewPortHeight = dc.getHeight();
+		viewPortWidth  = dc.getWidth();
+    	
         setLayout(Rez.Layouts.WatchFace(dc));
     }
     
-    function startupTimerCallback()
-    {
-    	clockTimer = new Timer.Timer();
-    	clockTimer.start(method(:clockTimerCallback), 60000 - sys.getTimer() % 60000, true);
-    	
-    	// todo: if ticked past sunrise/sunset run calculation again
-    	
-    	Ui.requestUpdate();
-    	startupTimer = null;
-    }
-    
     function clockTimerCallback()
-    {
-    	// todo: if ticked past sunrise/sunset run calculation again
-    
+    {		
+		if(evaluateJulianDay() > nextSunPhase)  
+		{
+			Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
+		}
+		
     	Ui.requestUpdate();
+    	
+    	clockTimer.start(method(:clockTimerCallback), 60000 - sys.getTimer() % 60000, false);
     }
     
     function onPosition(info)
@@ -55,39 +54,29 @@ class SunriseSunsetView extends Ui.View {
 		latN = 35.8833d;
 				
 		var JD = evaluateJulianDay();	
-		
-		sys.println("Julian day " + JD.toString());	
 				
 		var sunTuple = evaluateSunset(lonW, latN, JD);
 		
 		if(sunTuple.mSunset < JD) // if sunset is passed run calculation again for next day
 		{
-			JD = JD +1;
-			sunTuple = evaluateSunset(lonW, latN, JD);
+			sunTuple = evaluateSunset(lonW, latN, JD + 1);
 			
-			sys.println("sunrise (+1) " + sunTuple.mSunrise.toString());
-			sys.println("sunset  (+1) " + sunTuple.mSunset.toString());
+			//sys.println("sunrise (+1) " + sunTuple.mSunrise.toString());
+			//sys.println("sunset  (+1) " + sunTuple.mSunset.toString());
 		}
 		else
 		{
-			sys.println("sunrise " + sunTuple.mSunrise.toString());
-			sys.println("sunset  " + sunTuple.mSunset.toString());
+			//sys.println("sunrise " + sunTuple.mSunrise.toString());
+			//sys.println("sunset  " + sunTuple.mSunset.toString());
 		}
-		
-		// convert to hour:minutes
-		var sunrise = (sunTuple.mSunrise - sunTuple.mSunrise.toLong()) * 24 - 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
-		sys.println("sunrise " + sunrise.toLong().toString() + ":" + ((sunrise - sunrise.toLong()) * 60).toLong().toString());
-		
-		var sunset = (sunTuple.mSunset - sunTuple.mSunset.toLong()) * 24 + 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
-		sys.println("sunset  " + sunset.toLong().toString() + ":" + ((sunset - sunset.toLong()) * 60).toLong().toString());
-		
+			
 		var view = View.findDrawableById("SunLabel");
 		var icon = View.findDrawableById("SunIcon");
 		
-		var wc = _dc.getWidth() / 2;
-		var hc = _dc.getHeight() / 2;
+		var wc = viewPortWidth / 2;
+		var hc = viewPortHeight / 2;
 	
-		var vmargin = _dc.getHeight() * 0.25;
+		var vmargin = viewPortHeight * 0.25;
 		var hmargin = 6;
 		
 		var clock = View.findDrawableById("TimeLabel");
@@ -97,6 +86,12 @@ class SunriseSunsetView extends Ui.View {
 
 		if(JD <= sunTuple.mSunrise)
 		{
+			nextSunPhase = sunTuple.mSunrise;
+			
+			// convert to hours.minutes
+			var sunrise = (sunTuple.mSunrise - sunTuple.mSunrise.toLong()) * 24 - 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
+			
+			// draw as hours:minutes
 			view.setColor(Gfx.COLOR_YELLOW);
 			view.setText(sunrise.toLong().toString() + ":" + ((sunrise - sunrise.toLong()) * 60).toLong().toString());
 			
@@ -104,13 +99,19 @@ class SunriseSunsetView extends Ui.View {
 		}
 		else
 		{
+			nextSunPhase = sunTuple.mSunset;
+		
+			// convert to hours.minutes
+			var sunset = (sunTuple.mSunset - sunTuple.mSunset.toLong()) * 24 + 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
+			
+			// draw as hours:minutes
 			view.setColor(Gfx.COLOR_LT_GRAY);
 			view.setText(sunset.toLong().toString() + ":" + ((sunset - sunset.toLong()) * 60).toLong().toString());
 			
 			icon.setBitmap(Rez.Drawables.SunsetIcon);
 		}
 		
-		View.onUpdate(_dc);	
+		Ui.requestUpdate();	
 	}
 	
 	function evaluateJulianDay()
@@ -123,7 +124,11 @@ class SunriseSunsetView extends Ui.View {
 		
 		var JDN = timeInfo.day + ((153 * m  + 2) / 5) + 365*y + (y/4).toLong() - (y/100).toLong() + (y/400).toLong() - 32045;
 		
-		return JDN + (timeInfo.hour - 12)/24.0 + timeInfo.min/1440.0 + timeInfo.sec/(gregorian.SECONDS_PER_DAY*1.0);
+		var JD = JDN + (timeInfo.hour - 12)/24.0 + timeInfo.min/1440.0 + timeInfo.sec/(gregorian.SECONDS_PER_DAY*1.0);
+	
+		//sys.println("Julian day " + JD.toString());
+		
+		return JD;	
 	}
 	
 	function evaluateSunset(lonW, latN, JD)
@@ -205,11 +210,20 @@ class SunriseSunsetView extends Ui.View {
 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
+        
+        if(nextSunPhase == 0)
+        {		
+        	dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_BLACK);
+			dc.drawText(viewPortWidth/2, viewPortHeight/2 + 40, Gfx.FONT_SMALL, "No Activity", Gfx.TEXT_JUSTIFY_CENTER);
+		}
     }
 
     //! The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() 
     {
+    	sys.println("onExitSleep()");
+    	Ui.requestUpdate();
+    	
     }
 
     //! Terminate any active timers and prepare for slow updates.
