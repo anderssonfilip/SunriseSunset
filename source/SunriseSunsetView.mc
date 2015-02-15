@@ -171,10 +171,8 @@ class SunriseSunsetView extends Ui.View {
 		
 		// use absolute to get west as positive
 		lonW = info.position.toDegrees()[1].abs().toDouble();
-		lonW = -14.5d;  // MALTA. TODO: remove
 		
 		latN = info.position.toDegrees()[0].toDouble();
-		latN = 35.8833d;  // MALTA. TODO: remove
 				
 		var JD = evaluateJulianDay();	
 				
