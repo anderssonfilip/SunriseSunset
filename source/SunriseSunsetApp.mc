@@ -16,7 +16,8 @@ class SunriseSunsetApp extends App.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        return [ new SunriseSunsetView() ];
+    	var view = new SunriseSunsetView();
+        return [ view, new BaseBehaviorDelegate(view) ];
     }
 
 }
