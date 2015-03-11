@@ -129,19 +129,14 @@ class SunriseSunsetView extends Ui.View {
 	
 	function drawSunInfo(JD)
 	{
-		var view = View.findDrawableById("SunLabel");
-		var icon = View.findDrawableById("SunIcon");
-		
-		var wc = viewPortWidth / 2;
-		var hc = viewPortHeight / 2;
-	
-		var vmargin = viewPortHeight * 0.25;
-		var hmargin = 6;
-		
-		var clock = View.findDrawableById("TimeLabel");
-		                	
-		view.setLocation(wc + 32 + hmargin, hc + clock.height + vmargin);
-		icon.setLocation(wc - 16, hc + clock.height + vmargin - 6);
+		var timeLabel = View.findDrawableById("TimeLabel");
+		var sunIcon = View.findDrawableById("SunIcon");
+		var sunLabel = View.findDrawableById("SunLabel");
+		            
+		var locX = viewPortWidth/2 - 64;	
+		var locY = viewPortHeight/2 - 76;
+		sunIcon.setLocation(locX, locY);
+		sunLabel.setLocation(locX + 64, locY);
 
 		if(JD <= sunTuple.mSunrise)
 		{
@@ -156,11 +151,11 @@ class SunriseSunsetView extends Ui.View {
 			}
 			
 			// draw as hours:minutes
-			view.setColor(Gfx.COLOR_YELLOW);
+			sunLabel.setColor(Gfx.COLOR_YELLOW);
 			var timeString = Lang.format("$1$:$2$", [sunrise.toNumber() % 24, ((sunrise - sunrise.toNumber()) * 60).format("%.2d")]);
-			view.setText(timeString);
+			sunLabel.setText(timeString);
 			
-			icon.setBitmap(Rez.Drawables.SunriseIcon);
+			sunIcon.setBitmap(Rez.Drawables.SunriseIcon);
 			nowShowing = "sunrise";
 		}
 		else
@@ -171,11 +166,11 @@ class SunriseSunsetView extends Ui.View {
 			var sunset = (sunTuple.mSunset - sunTuple.mSunset.toLong()) * 24 + 12 - (utcOffset.value() / gregorian.SECONDS_PER_HOUR);
 			
 			// draw as hours:minutes
-			view.setColor(Gfx.COLOR_LT_GRAY);
+			sunLabel.setColor(Gfx.COLOR_LT_GRAY);
 			var timeString = Lang.format("$1$:$2$", [sunset.toNumber() % 24, ((sunset - sunset.toNumber()) * 60).format("%.2d")]);
-			view.setText(timeString);
+			sunLabel.setText(timeString);
 			
-			icon.setBitmap(Rez.Drawables.SunsetIcon);
+			sunIcon.setBitmap(Rez.Drawables.SunsetIcon);
 			nowShowing = "sunset";
 		}
 	}
@@ -199,8 +194,9 @@ class SunriseSunsetView extends Ui.View {
         // Get and show the current time
         var clockTime = sys.getClockTime();
         var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
-        var view = View.findDrawableById("TimeLabel");
-        view.setText(timeString);
+        var timeLabel = View.findDrawableById("TimeLabel");
+        var sunLabel = View.findDrawableById("SunLabel");
+        timeLabel.setText(timeString);
 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
@@ -208,25 +204,35 @@ class SunriseSunsetView extends Ui.View {
         if(nowShowing == null)
         {		
         	dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_BLACK);
-			dc.drawText(viewPortWidth/2, viewPortHeight/2 + 40, Gfx.FONT_SMALL, "No Activity", Gfx.TEXT_JUSTIFY_CENTER);
+			dc.drawText(viewPortWidth/2, 
+						timeLabel.locX + timeLabel.height, 
+						Gfx.FONT_MEDIUM, 
+						"No Activity", 
+						Gfx.TEXT_JUSTIFY_CENTER);
 		}
 				
+		var d = null;		
 		if(daysOffset == 0.5 && nowShowing.equals("sunset"))
 		{
-			dc.drawText(viewPortWidth/2 - 30, viewPortHeight/2 + 55, Gfx.FONT_XTINY, "+1/2", Gfx.TEXT_JUSTIFY_CENTER);
+			d = "1/2";
 		}
 		else if(daysOffset == -0.5 && nowShowing.equals("sunrise"))
 		{
-			dc.drawText(viewPortWidth/2 - 30, viewPortHeight/2 + 55, Gfx.FONT_XTINY, "-1/2", Gfx.TEXT_JUSTIFY_CENTER);
+			d = "-1/2";
 		}
 		else if(daysOffset >= 1)
 		{
-			dc.drawText(viewPortWidth/2 - 30, viewPortHeight/2 + 55, Gfx.FONT_XTINY, "+" + daysOffset.toNumber(), Gfx.TEXT_JUSTIFY_CENTER);
+			d = "+" + daysOffset.toNumber().toString();
 		}
 		else if(daysOffset <= -1)
 		{
-			dc.drawText(viewPortWidth/2 - 30, viewPortHeight/2 + 55, Gfx.FONT_XTINY, daysOffset.toNumber().toString(), Gfx.TEXT_JUSTIFY_CENTER);
+			d = daysOffset.toNumber().toString();
 		}	
+		
+		if(d != null)
+		{
+			dc.drawText(sunLabel.locX + 50, sunLabel.locY, Gfx.FONT_XTINY, d, Gfx.TEXT_JUSTIFY_CENTER);
+		}
     }
 
     //! The user has just looked at their watch. Timers and animations may be started here.
